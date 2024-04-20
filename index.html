@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculadora de Comisiones</title>
+
+</head>
+<body>
+    <section>
+    <div class="container">
+        <h2>Calculadora de Comisiones</h2>
+        <label for="valor">Monto</label>
+        <input type="number" id="valor" placeholder="$">
+
+        <label for="plan">Planes</label>
+
+        <input type="hidden" id="plan"> 
+
+        <button onclick="setPlan('Plan de 24 horas', 0.0274)" class="selectedplan btn-1">
+            <div class="plan-1">1</div>
+            <div class="descripcion">Plan de 24 horas</div>
+            <div class="comision">2.74%</div>
+            
+        </button>
+
+        <button onclick="setPlan('Plan de 72 horas', 0.0259)" class="selectedplan btn-2">
+            <div class="plan-2">2</div>
+            <div class="descripcion">Plan de 72 horas</div>
+            <div class="comision">2.59%</div>
+        </button>
+
+        <label for="formGroupExampleInput" class="form-label">Comisión</label>
+        <button onclick="calcularComision()">Calcular Comisión</button>
+
+        <div id="resultado" style="margin-top: 10px;"></div>
+    </div>
+</section>
+    <script>
+        var selectedPlan = "";
+        var selectedRate = 0;
+
+        function setPlan(plan, rate) {
+            selectedPlan = plan;
+            selectedRate = rate;
+            document.getElementById("plan").value = selectedPlan;
+        }
+
+        function calcularComision() {
+            var valorProducto = parseFloat(document.getElementById("valor").value);
+
+            if (isNaN(valorProducto) || valorProducto <= 0) {
+                alert("Por favor, ingresa un monto válido.");
+                return;
+            }
+
+            var comision = valorProducto * selectedRate;
+            comision += comision * 0.19; // Agregar el IVA del 19%
+
+            document.getElementById("resultado").innerHTML = "El valor de la comisión a pagar es: $" + comision.toFixed(2);
+        }
+    </script>
+</body>
+</html>
